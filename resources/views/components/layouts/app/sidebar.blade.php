@@ -38,7 +38,7 @@
             <div class="row">
                 <!-- Sidebar (offcanvas on mobile) -->
                 <div class="col-lg-3 col-xl-2 d-none d-lg-block bg-white border-end vh-100 position-fixed">
-                    <div class="p-3">
+                    <div class="p-3 d-flex flex-column h-100 overflow-auto">
                         <a href="{{ route('dashboard') }}" class="d-flex align-items-center mb-3 text-decoration-none">
                             <x-app-logo />
                         </a>

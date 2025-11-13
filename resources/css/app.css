@@ -330,6 +330,10 @@ a:not(.btn):hover { color: var(--color-rose-600) !important; }
 .btn.btn-link:hover, .btn-link:hover { color: var(--color-rose-600) !important; }
 
 
-
+/* nav-link.active hover should white */
+.nav-link.active:hover {
+    color: #fff !important;
+    background-color: var(--color-rose-700) !important;
+}
 
 
