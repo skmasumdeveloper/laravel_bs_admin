@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\Admin\PageController as AdminPageController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,4 +45,15 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('users', 'users.index')
         ->middleware(['role:admin'])
         ->name('users.index');
+
+    // Admin Pages management
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('pages', AdminPageController::class)->except(['show']);
+    });
 });
+
+// Public-facing pages (about, contact, privacy, etc.)
+// NOTE: Placed last so it doesn't shadow other routes. It will return 404
+// for non-existing slugs and let other routes be matched first.
+Route::get('{slug}', [PageController::class, 'show'])->name('pages.show')
+    ->where('slug', '[A-Za-z0-9\-]+');

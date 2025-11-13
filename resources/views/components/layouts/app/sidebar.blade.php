@@ -52,6 +52,7 @@
                                     <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">{{ __('Users') }}</a>
                                     <a class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}" href="{{ route('roles.index') }}">{{ __('Roles') }}</a>
                                     <a class="nav-link {{ request()->routeIs('users.roles') ? 'active' : '' }}" href="{{ route('users.roles') }}">{{ __('Assign Roles') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">{{ __('Pages') }}</a>
                                 </div>
                             @endrole
 
@@ -95,6 +96,7 @@
                                     <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">{{ __('Users') }}</a>
                                     <a class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}" href="{{ route('roles.index') }}">{{ __('Roles') }}</a>
                                     <a class="nav-link {{ request()->routeIs('users.roles') ? 'active' : '' }}" href="{{ route('users.roles') }}">{{ __('Assign Roles') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">{{ __('Pages') }}</a>
                                 </div>
                             @endrole
                             <div class="mt-4">
