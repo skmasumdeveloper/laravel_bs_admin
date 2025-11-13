@@ -56,8 +56,8 @@
                             @endrole
 
                             <div class="mt-4">
-                                <a class="nav-link" href="https://github.com/laravel/livewire-starter-kit" target="_blank">{{ __('Repository') }}</a>
-                                <a class="nav-link" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">{{ __('Documentation') }}</a>
+                                {{-- <a class="nav-link" href="https://github.com/laravel/livewire-starter-kit" target="_blank">{{ __('Repository') }}</a>
+                                <a class="nav-link" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">{{ __('Documentation') }}</a> --}}
                             </div>
                         </nav>
 
@@ -98,8 +98,8 @@
                                 </div>
                             @endrole
                             <div class="mt-4">
-                                <a class="nav-link" href="https://github.com/laravel/livewire-starter-kit" target="_blank">{{ __('Repository') }}</a>
-                                <a class="nav-link" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">{{ __('Documentation') }}</a>
+                                {{-- <a class="nav-link" href="https://github.com/laravel/livewire-starter-kit" target="_blank">{{ __('Repository') }}</a>
+                                <a class="nav-link" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">{{ __('Documentation') }}</a> --}}
                             </div>
                         </nav>
                     </div>
