@@ -1,145 +1,3 @@
-<?php
-
-use App\Models\User;
-use Livewire\Volt\Component;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Str;
-
-new class extends Component {
-    public string $search = '';
-    public array $form = [
-        'id' => null,
-        'name' => '',
-        'email' => '',
-        'password' => '',
-        'roles' => [],
-    ];
-
-    public bool $showCreate = false;
-    public bool $showEdit = false;
-    public array $availableRoles = [];
-
-    public function mount(): void
-    {
-        $this->availableRoles = Role::orderBy('name')->pluck('name')->toArray();
-    }
-
-    public function getUsersProperty()
-    {
-        $q = User::with('roles')->orderBy('name');
-
-        if ($this->search) {
-            $q->where(fn ($q) => $q->where('name', 'like', "%{$this->search}%")->orWhere('email', 'like', "%{$this->search}%"));
-        }
-
-        return $q->get();
-    }
-
-    protected function rules(): array
-    {
-        return [
-            'form.name' => ['required', 'string', 'max:255'],
-            'form.email' => ['required', 'email', 'max:255', 'unique:users,email' . ($this->form['id'] ? ",{$this->form['id']}" : '')],
-            'form.password' => [$this->form['id'] ? 'nullable' : 'required', 'string', 'min:6'],
-            'form.roles' => ['array'],
-        ];
-    }
-
-    public function openCreate(): void
-    {
-        $this->resetForm();
-        $this->showCreate = true;
-    }
-
-    public function openEdit(int $id): void
-    {
-        $user = User::with('roles')->find($id);
-        if (! $user) {
-            session()->flash('error', 'User not found.');
-            return;
-        }
-
-        $this->form = [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'password' => '',
-            'roles' => $user->roles->pluck('name')->toArray(),
-        ];
-
-        $this->showEdit = true;
-    }
-
-    public function createUser(): void
-    {
-        $this->validate();
-
-        $user = User::create([
-            'name' => $this->form['name'],
-            'email' => $this->form['email'],
-            'password' => bcrypt($this->form['password']),
-        ]);
-
-        if (! empty($this->form['roles'])) {
-            $user->syncRoles($this->form['roles']);
-        }
-
-        session()->flash('success', 'User created.');
-        $this->resetForm();
-        $this->showCreate = false;
-        $this->dispatch('$refresh');
-    }
-
-    public function updateUser(): void
-    {
-        $this->validate();
-
-        $user = User::find($this->form['id']);
-        if (! $user) {
-            session()->flash('error', 'User not found.');
-            return;
-        }
-
-        $user->name = $this->form['name'];
-        $user->email = $this->form['email'];
-        if (! empty($this->form['password'])) {
-            $user->password = bcrypt($this->form['password']);
-        }
-        $user->save();
-
-        $user->syncRoles($this->form['roles'] ?? []);
-
-        session()->flash('success', 'User updated.');
-        $this->resetForm();
-        $this->showEdit = false;
-        $this->dispatch('$refresh');
-    }
-
-    public function deleteUser(int $id): void
-    {
-        $user = User::find($id);
-        if (! $user) {
-            session()->flash('error', 'User not found.');
-            return;
-        }
-
-        // Prevent deleting yourself accidentally
-        if (auth()->id() === $user->id) {
-            session()->flash('error', 'You cannot delete your own account.');
-            return;
-        }
-
-        $user->delete();
-        session()->flash('success', 'User deleted.');
-        $this->dispatch('$refresh');
-    }
-
-    private function resetForm(): void
-    {
-        $this->form = ['id' => null, 'name' => '', 'email' => '', 'password' => '', 'roles' => []];
-    }
-}; ?>
-
 <div class="mb-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
@@ -229,8 +87,8 @@ new class extends Component {
                                 <div>
                                     @foreach ($availableRoles as $role)
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" wire:model="form.roles" value="{{ $role }}" id="create-role-{{ Str::slug($role) }}">
-                                            <label class="form-check-label" for="create-role-{{ Str::slug($role) }}">{{ $role }}</label>
+                                            <input class="form-check-input" type="checkbox" wire:model="form.roles" value="{{ $role }}" id="create-role-{{ \Illuminate\Support\Str::slug($role) }}">
+                                            <label class="form-check-label" for="create-role-{{ \Illuminate\Support\Str::slug($role) }}">{{ $role }}</label>
                                         </div>
                                     @endforeach
                                 </div>
@@ -280,8 +138,8 @@ new class extends Component {
                                 <div>
                                     @foreach ($availableRoles as $role)
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" wire:model="form.roles" value="{{ $role }}" id="edit-role-{{ Str::slug($role) }}">
-                                            <label class="form-check-label" for="edit-role-{{ Str::slug($role) }}">{{ $role }}</label>
+                                            <input class="form-check-input" type="checkbox" wire:model="form.roles" value="{{ $role }}" id="edit-role-{{ \Illuminate\Support\Str::slug($role) }}">
+                                            <label class="form-check-label" for="edit-role-{{ \Illuminate\Support\Str::slug($role) }}">{{ $role }}</label>
                                         </div>
                                     @endforeach
                                 </div>

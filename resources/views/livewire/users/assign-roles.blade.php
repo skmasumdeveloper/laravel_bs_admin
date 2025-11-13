@@ -1,44 +1,3 @@
-<?php
-
-use App\Models\User;
-use Livewire\Volt\Component;
-use Spatie\Permission\Models\Role;
-
-new class extends Component {
-    public array $userRoles = [];
-    public array $availableRoles = [];
-
-    public function mount(): void
-    {
-        $this->availableRoles = Role::orderBy('name')->pluck('name')->toArray();
-
-        // Initialize user roles mapping
-        foreach (User::with('roles:id,name')->get(['id']) as $u) {
-            $this->userRoles[$u->id] = $u->roles->pluck('name')->toArray();
-        }
-    }
-
-    public function updateUserRoles(int $userId): void
-    {
-        $user = User::find($userId);
-        if (! $user) {
-            session()->flash('error', 'User not found.');
-            return;
-        }
-
-        $roles = $this->userRoles[$userId] ?? [];
-        $user->syncRoles($roles);
-
-        session()->flash('success', 'User roles updated.');
-        $this->dispatch('$refresh');
-    }
-
-    public function getUsersProperty()
-    {
-        return User::with('roles:id,name')->orderBy('name')->get();
-    }
-}; ?>
-
 <div class="mb-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h5 mb-0">Assign Roles to Users</h1>
@@ -74,8 +33,8 @@ new class extends Component {
                                     <div>
                                         @foreach ($availableRoles as $role)
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" wire:model="userRoles.{{ $user->id }}" value="{{ $role }}" id="user-{{ $user->id }}-role-{{ Str::slug($role) }}">
-                                                <label class="form-check-label small" for="user-{{ $user->id }}-role-{{ Str::slug($role) }}">{{ $role }}</label>
+                                                <input class="form-check-input" type="checkbox" wire:model="userRoles.{{ $user->id }}" value="{{ $role }}" id="user-{{ $user->id }}-role-{{ \Illuminate\Support\Str::slug($role) }}">
+                                                <label class="form-check-label small" for="user-{{ $user->id }}-role-{{ \Illuminate\Support\Str::slug($role) }}">{{ $role }}</label>
                                             </div>
                                         @endforeach
                                     </div>

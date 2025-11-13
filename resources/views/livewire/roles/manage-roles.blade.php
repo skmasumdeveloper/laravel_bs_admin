@@ -1,68 +1,3 @@
-<?php
-
-use Livewire\Volt\Component;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-
-new class extends Component {
-    public string $name = '';
-    public array $permissions = [];
-    public array $availablePermissions = [];
-
-    public function mount(): void
-    {
-        $this->availablePermissions = Permission::orderBy('name')->pluck('name')->toArray();
-    }
-
-    protected function rules(): array
-    {
-        return [
-            'name' => ['required', 'string', 'max:255', 'unique:roles,name'],
-            'permissions' => ['array'],
-            'permissions.*' => ['string', 'exists:permissions,name'],
-        ];
-    }
-
-    public function createRole(): void
-    {
-        $this->validate();
-
-        $role = Role::create(['name' => $this->name, 'guard_name' => 'web']);
-        if (! empty($this->permissions)) {
-            $role->syncPermissions($this->permissions);
-        }
-
-        $this->reset(['name', 'permissions']);
-        session()->flash('success', 'Role created successfully.');
-
-        // Refresh available roles list
-        $this->dispatch('$refresh');
-    }
-
-    public function deleteRole(int $roleId): void
-    {
-        $role = Role::find($roleId);
-        if (! $role) {
-            session()->flash('error', 'Role not found.');
-            return;
-        }
-
-        if ($role->name === 'admin') {
-            session()->flash('error', 'Cannot delete the admin role.');
-            return;
-        }
-
-        $role->delete();
-        session()->flash('success', 'Role deleted.');
-        $this->dispatch('$refresh');
-    }
-
-    public function getRolesProperty()
-    {
-        return Role::with('permissions')->orderBy('name')->get();
-    }
-}; ?>
-
 <div class="mb-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h5 mb-0">Manage Roles</h1>
@@ -95,8 +30,8 @@ new class extends Component {
                             <div class="d-flex flex-wrap gap-2 overflow-auto" style="max-height:180px">
                                 @forelse ($availablePermissions as $perm)
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" wire:model="permissions" value="{{ $perm }}" id="perm-{{ Str::slug($perm) }}">
-                                        <label class="form-check-label small" for="perm-{{ Str::slug($perm) }}">{{ $perm }}</label>
+                                        <input class="form-check-input" type="checkbox" wire:model="permissions" value="{{ $perm }}" id="perm-{{ \Illuminate\Support\Str::slug($perm) }}">
+                                        <label class="form-check-label small" for="perm-{{ \Illuminate\Support\Str::slug($perm) }}">{{ $perm }}</label>
                                     </div>
                                 @empty
                                     <div class="small text-muted">No permissions defined yet.</div>

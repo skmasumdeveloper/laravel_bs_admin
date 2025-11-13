@@ -11,7 +11,7 @@
                     ☰
                 </button>
 
-                <a class="navbar-brand ms-2" href="{{ route('dashboard') }}">{{ config('app.name') }}</a>
+                <a class="navbar-brand ms-2" href="{{ route('admin.dashboard') }}">{{ config('app.name') }}</a>
 
                 <div class="dropdown ms-auto">
                     <a class="btn btn-light dropdown-toggle" href="#" role="button" id="mobileUserMenu" data-bs-toggle="dropdown" aria-expanded="false">
@@ -23,7 +23,7 @@
                             <div class="text-muted small">{{ auth()->user()->email ?? '' }}</div>
                         </li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Settings') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ route('admin.settings.profile') }}">{{ __('Settings') }}</a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">@csrf
                                 <button class="dropdown-item" type="submit">{{ __('Log Out') }}</button>
@@ -39,19 +39,19 @@
                 <!-- Sidebar (offcanvas on mobile) -->
                 <div class="col-lg-3 col-xl-2 d-none d-lg-block bg-white border-end vh-100 position-fixed">
                     <div class="p-3 d-flex flex-column h-100 overflow-auto">
-                        <a href="{{ route('dashboard') }}" class="d-flex align-items-center mb-3 text-decoration-none">
+                        <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center mb-3 text-decoration-none">
                             <x-app-logo />
                         </a>
 
                         <nav class="nav flex-column">
-                            <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
+                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
 
                             @role('admin')
                                 <div class="mt-3">
                                     <div class="text-uppercase small text-muted mb-2">{{ __('Administration') }}</div>
-                                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">{{ __('Users') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}" href="{{ route('roles.index') }}">{{ __('Roles') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('users.roles') ? 'active' : '' }}" href="{{ route('users.roles') }}">{{ __('Assign Roles') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">{{ __('Roles') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.users.roles') ? 'active' : '' }}" href="{{ route('admin.users.roles') }}">{{ __('Assign Roles') }}</a>
                                     <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">{{ __('Pages') }}</a>
                                 </div>
                             @endrole
@@ -72,7 +72,7 @@
                             </div>
 
                             <div class="mt-3">
-                                <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-outline-secondary w-100 mb-2">{{ __('Settings') }}</a>
+                                <a href="{{ route('admin.settings.profile') }}" class="btn btn-sm btn-outline-secondary w-100 mb-2">{{ __('Settings') }}</a>
                                 <form method="POST" action="{{ route('logout') }}">@csrf
                                     <button type="submit" class="btn btn-sm btn-danger w-100">{{ __('Log Out') }}</button>
                                 </form>
@@ -89,13 +89,13 @@
                     </div>
                     <div class="offcanvas-body">
                         <nav class="nav flex-column">
-                            <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
+                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                             @role('admin')
                                 <div class="mt-3">
                                     <div class="text-uppercase small text-muted mb-2">{{ __('Administration') }}</div>
-                                    <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">{{ __('Users') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}" href="{{ route('roles.index') }}">{{ __('Roles') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('users.roles') ? 'active' : '' }}" href="{{ route('users.roles') }}">{{ __('Assign Roles') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">{{ __('Roles') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.users.roles') ? 'active' : '' }}" href="{{ route('admin.users.roles') }}">{{ __('Assign Roles') }}</a>
                                     <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">{{ __('Pages') }}</a>
                                 </div>
                             @endrole

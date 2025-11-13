@@ -1,111 +1,34 @@
-<?php
+<div>
+    <form wire:submit="updateProfileInformation" class="my-4 w-full">
+        <div class="mb-3">
+            <label class="form-label">{{ __('Name') }}</label>
+            <input wire:model="name" type="text" class="form-control" required autofocus autocomplete="name" />
+            @error('name') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+        </div>
 
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Validation\Rule;
-use Livewire\Volt\Component;
+        <div class="mb-3">
+            <label class="form-label">{{ __('Email') }}</label>
+            <input wire:model="email" type="email" class="form-control" required autocomplete="email" />
+            @error('email') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
 
-new class extends Component {
-    public string $name = '';
-    public string $email = '';
+            @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! auth()->user()->hasVerifiedEmail())
+                <div class="mt-3">
+                    <p class="mb-1">{{ __('Your email address is unverified.') }}</p>
+                    <button type="button" class="btn btn-link p-0" wire:click.prevent="resendVerificationNotification">{{ __('Click here to re-send the verification email.') }}</button>
 
-    /**
-     * Mount the component.
-     */
-    public function mount(): void
-    {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
-    }
-
-    /**
-     * Update the profile information for the currently authenticated user.
-     */
-    public function updateProfileInformation(): void
-    {
-        $user = Auth::user();
-
-        $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($user->id)
-            ],
-        ]);
-
-        $user->fill($validated);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $user->save();
-
-        $this->dispatch('profile-updated', name: $user->name);
-    }
-
-    /**
-     * Send an email verification notification to the current user.
-     */
-    public function resendVerificationNotification(): void
-    {
-        $user = Auth::user();
-
-        if ($user->hasVerifiedEmail()) {
-            $this->redirectIntended(default: route('dashboard', absolute: false));
-
-            return;
-        }
-
-        $user->sendEmailVerificationNotification();
-
-        Session::flash('status', 'verification-link-sent');
-    }
-}; ?>
-
-<section class="w-full">
-    @include('partials.settings-heading')
-
-    <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
-        <form wire:submit="updateProfileInformation" class="my-4 w-full">
-            <div class="mb-3">
-                <label class="form-label">{{ __('Name') }}</label>
-                <input wire:model="name" type="text" class="form-control" required autofocus autocomplete="name" />
-                @error('name') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">{{ __('Email') }}</label>
-                <input wire:model="email" type="email" class="form-control" required autocomplete="email" />
-                @error('email') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
-
-                @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! auth()->user()->hasVerifiedEmail())
-                    <div class="mt-3">
-                        <p class="mb-1">{{ __('Your email address is unverified.') }}</p>
-                        <button type="button" class="btn btn-link p-0" wire:click.prevent="resendVerificationNotification">{{ __('Click here to re-send the verification email.') }}</button>
-
-                        @if (session('status') === 'verification-link-sent')
-                            <div class="mt-2 small text-success">{{ __('A new verification link has been sent to your email address.') }}</div>
-                        @endif
-                    </div>
-                @endif
-            </div>
-
-            <div class="d-flex align-items-center gap-3">
-                <div class="flex-grow-1">
-                    <button type="submit" class="btn btn-primary w-100" data-test="update-profile-button">{{ __('Save') }}</button>
+                    @if (session('status') === 'verification-link-sent')
+                        <div class="mt-2 small text-success">{{ __('A new verification link has been sent to your email address.') }}</div>
+                    @endif
                 </div>
+            @endif
+        </div>
 
-                <x-action-message class="ms-3" on="profile-updated">{{ __('Saved.') }}</x-action-message>
+        <div class="d-flex align-items-center gap-3">
+            <div class="flex-grow-1">
+                <button type="submit" class="btn btn-primary w-100" data-test="update-profile-button">{{ __('Save') }}</button>
             </div>
-        </form>
 
-        <livewire:settings.delete-user-form />
-    </x-settings.layout>
-</section>
+            <x-action-message class="ms-3" on="profile-updated">{{ __('Saved.') }}</x-action-message>
+        </div>
+    </form>
+</div>

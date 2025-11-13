@@ -11,7 +11,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <a href="{{ route('dashboard') }}" class="navbar-brand d-flex align-items-center" wire:navigate>
+                    <a href="{{ route('admin.dashboard') }}" class="navbar-brand d-flex align-items-center" wire:navigate>
                         <x-app-logo />
                     </a>
                 </div>
@@ -23,7 +23,7 @@
                 <div class="collapse navbar-collapse" id="mainNavbar">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}" wire:navigate>{{ __('Dashboard') }}</a>
+                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}" wire:navigate>{{ __('Dashboard') }}</a>
                         </li>
                     </ul>
 
@@ -56,7 +56,7 @@
                                     </div>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ route('profile.edit') }}" wire:navigate>{{ __('Settings') }}</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.settings.profile') }}" wire:navigate>{{ __('Settings') }}</a></li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}" class="m-0">
                                         @csrf
@@ -78,7 +78,7 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}" wire:navigate>{{ __('Dashboard') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}" wire:navigate>{{ __('Dashboard') }}</a></li>
                     <li class="nav-item"><a class="nav-link" href="https://github.com/laravel/livewire-starter-kit" target="_blank">{{ __('Repository') }}</a></li>
                     <li class="nav-item"><a class="nav-link" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">{{ __('Documentation') }}</a></li>
                 </ul>
