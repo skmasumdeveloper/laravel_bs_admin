@@ -29,4 +29,18 @@ Route::middleware(['auth'])->group(function () {
             ),
         )
         ->name('two-factor.show');
+
+    // Role & Permission management (admin only)
+    Volt::route('roles', 'roles.manage-roles')
+        ->middleware(['role:admin'])
+        ->name('roles.index');
+
+    Volt::route('users/roles', 'users.assign-roles')
+        ->middleware(['role:admin'])
+        ->name('users.roles');
+
+    // Users CRUD (admin)
+    Volt::route('users', 'users.index')
+        ->middleware(['role:admin'])
+        ->name('users.index');
 });

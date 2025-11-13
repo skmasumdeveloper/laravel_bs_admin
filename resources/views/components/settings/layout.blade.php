@@ -1,22 +1,22 @@
-<div class="flex items-start max-md:flex-col">
-    <div class="me-10 w-full pb-4 md:w-[220px]">
-        <flux:navlist>
-            <flux:navlist.item :href="route('profile.edit')" wire:navigate>{{ __('Profile') }}</flux:navlist.item>
-            <flux:navlist.item :href="route('user-password.edit')" wire:navigate>{{ __('Password') }}</flux:navlist.item>
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+            <a class="nav-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
+            <a class="nav-link {{ request()->routeIs('user-password.edit') ? 'active' : '' }}" href="{{ route('user-password.edit') }}">{{ __('Password') }}</a>
+
             @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
-                <flux:navlist.item :href="route('two-factor.show')" wire:navigate>{{ __('Two-Factor Auth') }}</flux:navlist.item>
+                <a class="nav-link {{ request()->routeIs('two-factor.show') ? 'active' : '' }}" href="{{ route('two-factor.show') }}">{{ __('Two-Factor Auth') }}</a>
             @endif
-            <flux:navlist.item :href="route('appearance.edit')" wire:navigate>{{ __('Appearance') }}</flux:navlist.item>
-        </flux:navlist>
+
+            <a class="nav-link {{ request()->routeIs('appearance.edit') ? 'active' : '' }}" href="{{ route('appearance.edit') }}">{{ __('Appearance') }}</a>
+        </div>
     </div>
 
-    <flux:separator class="md:hidden" />
+    <div class="col-md-9">
+        <h2 class="h4">{{ $heading ?? '' }}</h2>
+        <p class="text-muted">{{ $subheading ?? '' }}</p>
 
-    <div class="flex-1 self-stretch max-md:pt-6">
-        <flux:heading>{{ $heading ?? '' }}</flux:heading>
-        <flux:subheading>{{ $subheading ?? '' }}</flux:subheading>
-
-        <div class="mt-5 w-full max-w-lg">
+        <div class="mt-4 w-100">
             {{ $slot }}
         </div>
     </div>
