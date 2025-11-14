@@ -3,10 +3,8 @@
         @include('partials.settings-heading')
 
         <x-settings.layout :heading="__('Profile')" :subheading="__('Update your personal details')">
-            <livewire:settings.profile-form />
-
-            <div class="mt-5">
-                <livewire:settings.delete-user-form />
+            <div class="alert alert-info">
+                Profile settings functionality is available through standard Laravel forms. This section can be enhanced based on your requirements.
             </div>
         </x-settings.layout>
     </section>

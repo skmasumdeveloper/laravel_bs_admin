@@ -3,7 +3,9 @@
         @include('partials.settings-heading')
 
         <x-settings.layout :heading="__('Appearance')" :subheading="__('Toggle light, dark, or system mode')">
-            <livewire:settings.appearance-settings />
+            <div class="alert alert-info">
+                Appearance settings can be implemented based on your theme requirements.
+            </div>
         </x-settings.layout>
     </section>
 </x-layouts.app>
