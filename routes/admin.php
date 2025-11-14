@@ -37,12 +37,29 @@ Route::middleware('web')->group(function () {
 
             Route::middleware('role:admin')->group(function () {
                 // Content management
-                Route::get('categories', CategoryController::class)->name('categories.index');
-                Route::get('blogs', BlogController::class)->name('blogs.index');
+                Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+                Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
+                Route::put('categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+                Route::delete('categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+                
+                Route::get('blogs', [BlogController::class, 'index'])->name('blogs.index');
+                Route::post('blogs', [BlogController::class, 'store'])->name('blogs.store');
+                Route::put('blogs/{id}', [BlogController::class, 'update'])->name('blogs.update');
+                Route::delete('blogs/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
 
-                Route::get('roles', RoleController::class)->name('roles.index');
-                Route::get('users/roles', RoleAssignmentController::class)->name('users.roles');
-                Route::get('users', UserController::class)->name('users.index');
+                Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
+                Route::post('roles', [RoleController::class, 'store'])->name('roles.store');
+                Route::delete('roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+                
+                Route::get('users/roles', [RoleAssignmentController::class, 'index'])->name('users.roles');
+                Route::post('users/roles/assign', [RoleAssignmentController::class, 'assign'])->name('users.roles.assign');
+                
+                Route::get('users', [UserController::class, 'index'])->name('users.index');
+                Route::post('users', [UserController::class, 'store'])->name('users.store');
+                Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
+                Route::delete('users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+                Route::get('users/search', [UserController::class, 'search'])->name('users.search');
+                
                 Route::resource('pages', AdminPageController::class)->except(['show']);
             });
         });
