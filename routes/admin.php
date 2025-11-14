@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Settings\ProfileController;
 use App\Http\Controllers\Admin\Settings\TwoFactorController;
 use App\Http\Controllers\Admin\Users\RoleAssignmentController;
 use App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\Admin\Categories\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -34,6 +35,9 @@ Route::middleware('web')->group(function () {
             });
 
             Route::middleware('role:admin')->group(function () {
+                // Content management
+                Route::get('categories', CategoryController::class)->name('categories.index');
+
                 Route::get('roles', RoleController::class)->name('roles.index');
                 Route::get('users/roles', RoleAssignmentController::class)->name('users.roles');
                 Route::get('users', UserController::class)->name('users.index');
