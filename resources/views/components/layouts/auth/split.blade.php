@@ -8,7 +8,7 @@
             <div class="row gx-0 align-items-stretch" style="min-height:100vh;">
                 <div class="col-lg-6 d-none d-lg-flex bg-dark text-white flex-column p-4">
                     <div>
-                        <a href="{{ route('home') }}" class="d-inline-flex align-items-center text-white text-decoration-none mb-3" wire:navigate>
+                        <a href="{{ route('home') }}" class="d-inline-flex align-items-center text-white text-decoration-none mb-3">
                             <span class="me-2">
                                 <x-app-logo-icon class="" />
                             </span>
@@ -31,7 +31,7 @@
                 <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center p-4">
                     <div class="w-100" style="max-width:420px;">
                         <div class="d-lg-none text-center mb-3">
-                            <a href="{{ route('home') }}" class="d-inline-flex align-items-center" wire:navigate>
+                            <a href="{{ route('home') }}" class="d-inline-flex align-items-center">
                                 <span class="me-2">
                                     <x-app-logo-icon class="" />
                                 </span>
