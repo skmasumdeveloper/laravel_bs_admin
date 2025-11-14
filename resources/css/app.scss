@@ -1,0 +1,19 @@
+// Theme variable overrides using the new Sass module system (@use)
+// Set Bootstrap variables via the `with` clause when loading the module.
+$white: #ffffff;
+
+@use "bootstrap" with (
+  $theme-colors: (
+    "light": #e5e7e9,
+    "dark": #111827,
+    "primary": #cb0e40, /* red-rose */
+    "secondary": #6c757d,
+    "info": #0dcaf0,
+    "success": #198754,
+    "warning": #ffc107,
+    "danger": #dc3545
+  )
+);
+
+// Import app's custom CSS (our component styles and utilities)
+@import "app.css";

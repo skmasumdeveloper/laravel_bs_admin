@@ -1,6 +1,6 @@
-<div class="flex aspect-square size-8 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-    <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
+<div class="d-flex align-items-center justify-content-center rounded bg-primary text-white p-2" style="width:38px;height:38px;">
+    <x-app-logo-icon class="" />
 </div>
-<div class="ms-1 grid flex-1 text-start text-sm">
-    <span class="mb-0.5 truncate leading-tight font-semibold">Laravel Starter Kit</span>
+<div class="ms-2 flex-grow-1 text-start small">
+    <span class="fw-semibold">Laravel</span>
 </div>

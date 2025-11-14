@@ -1,19 +1,16 @@
-<?php
+<div>
+    <div class="btn-group" role="group" aria-label="Appearance options">
+        <input type="radio" class="btn-check" name="appearance" id="appearance-light" value="light" wire:model.live="mode">
+        <label class="btn btn-outline-secondary" for="appearance-light">{{ __('Light') }}</label>
 
-use Livewire\Volt\Component;
+        <input type="radio" class="btn-check" name="appearance" id="appearance-dark" value="dark" wire:model.live="mode">
+        <label class="btn btn-outline-secondary" for="appearance-dark">{{ __('Dark') }}</label>
 
-new class extends Component {
-    //
-}; ?>
+        <input type="radio" class="btn-check" name="appearance" id="appearance-system" value="system" wire:model.live="mode">
+        <label class="btn btn-outline-secondary" for="appearance-system">{{ __('System') }}</label>
+    </div>
 
-<section class="w-full">
-    @include('partials.settings-heading')
-
-    <x-settings.layout :heading="__('Appearance')" :subheading=" __('Update the appearance settings for your account')">
-        <flux:radio.group x-data variant="segmented" x-model="$flux.appearance">
-            <flux:radio value="light" icon="sun">{{ __('Light') }}</flux:radio>
-            <flux:radio value="dark" icon="moon">{{ __('Dark') }}</flux:radio>
-            <flux:radio value="system" icon="computer-desktop">{{ __('System') }}</flux:radio>
-        </flux:radio.group>
-    </x-settings.layout>
-</section>
+    <p class="small text-muted mt-3">
+        {{ __('Preference saved to your current session. Hook into the appearance-updated event from JS to persist it elsewhere.') }}
+    </p>
+</div>

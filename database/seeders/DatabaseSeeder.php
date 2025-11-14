@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\PageSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,10 +17,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@test.com',
-            'password' => bcrypt('password'),
-        ]);
+        // Ensure admin user exists (idempotent)
+        \App\Models\User::updateOrCreate(
+            ['email' => 'admin@test.com'],
+            [
+                'name' => 'admin',
+                'password' => bcrypt('password'),
+            ]
+        );
+
+        // Seed default pages
+        $this->call(PageSeeder::class);
     }
 }

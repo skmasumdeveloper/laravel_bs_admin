@@ -1,14 +1,5 @@
-@import 'tailwindcss';
-@import '../../vendor/livewire/flux/dist/flux.css';
 
-@source '../views';
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
-@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme {
+:root {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     --color-zinc-50: #fafafa;
@@ -23,44 +14,326 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
+    /* Theme palette */
+    --color-rose: #cb0e40; /* red rose accent */
+    --color-rose-600: #b40c36; /* hover/active */
+    --color-rose-700: #9a0a2b; /* stronger hover */
+    --color-rose-800: #7b001f; /* deep for text on light backgrounds */
+    --color-bg: #e4e4e4; /* greywhite background */
+    --color-surface: #ffffff;
+    --color-muted: #6c757d;
+
+    /* Bootstrap-compatible vars (for uses that reference these) */
+    --bs-primary: var(--color-rose);
+    --bs-primary-rgb: 203, 14, 64;
+    --bs-body-bg: var(--color-bg);
+    --bs-body-color: var(--color-zinc-800);
+
+    --color-accent: var(--color-rose);
+    --color-accent-content: var(--color-rose);
     --color-accent-foreground: var(--color-white);
 }
 
-@layer theme {
-    .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
+/* Dark mode variable overrides */
+.dark {
+    --color-accent: var(--color-white);
+    --color-accent-content: var(--color-white);
+    --color-accent-foreground: var(--color-neutral-800);
+}
+
+/* Base rules previously in @layer base */
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+}
+
+/* Theme overrides and utilities — Rose (#cb0e40) on Grey-White */
+
+body {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    font-family: var(--font-sans);
+}
+
+.btn-primary {
+    background-color: var(--color-rose);
+    border-color: var(--color-rose);
+    color: #fff;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--color-rose-700);
+    border-color: var(--color-rose-700);
+    color: #fff;
+    box-shadow: 0 0 0 .15rem rgba(var(--bs-primary-rgb), .14);
+}
+.btn-outline-primary {
+    color: var(--color-rose);
+    border-color: rgba(var(--bs-primary-rgb), .15);
+}
+
+/* Links & nav */
+.nav-link, a {
+    color: var(--color-rose);
+}
+.nav-link:hover, a:hover {
+    color: var(--color-rose-600);
+    text-decoration: none;
+}
+.nav-link.active {
+    color: #fff !important;
+    background-color: var(--color-rose);
+    border-radius: .375rem;
+    padding: .35rem .65rem;
+}
+
+/* Form inputs focus */
+.form-control:focus {
+    border-color: var(--color-rose);
+    box-shadow: 0 0 0 .15rem rgba(var(--bs-primary-rgb), .08);
+}
+
+/* Cards, tables, badges */
+.card {
+    background: var(--color-surface);
+    border-color: #e9ecef;
+}
+.table thead th {
+    background: transparent;
+    color: var(--color-zinc-700);
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(203,14,64,0.03);
+}
+.badge {
+    background-color: rgba(var(--bs-primary-rgb), .10);
+    color: var(--color-rose);
+}
+
+/* Icon helpers (existing icons will pick these up) */
+.icon, .bi, .fa, .svg-icon {
+    color: var(--color-rose);
+    vertical-align: middle;
+}
+.icon-muted {
+    color: var(--color-zinc-500);
+}
+
+/* Utilities */
+.text-rose { color: var(--color-rose) !important; }
+.bg-rose { background-color: var(--color-rose) !important; color: #fff !important; }
+.border-rose { border-color: var(--color-rose) !important; }
+
+/* Accessibility focus ring */
+:focus {
+    outline: 2px dashed rgba(var(--bs-primary-rgb), .12);
+    outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #0f1720;
+        color: #e6eef5;
     }
+    .card { background: #0b1320; border-color: #111827; }
 }
 
-@layer base {
-
-    *,
-    ::after,
-    ::before,
-    ::backdrop,
-    ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
-    }
+/* Shadows and motion tokens */
+:root {
+    --shadow-sm: 0 1px 2px rgba(16,24,40,0.05);
+    --shadow-md: 0 6px 18px rgba(16,24,40,0.08);
+    --shadow-lg: 0 20px 40px rgba(16,24,40,0.12);
+    --radius-md: .5rem;
 }
 
-[data-flux-field]:not(ui-radio, ui-checkbox) {
-    @apply grid gap-2;
+/* Smooth interactive transitions */
+* { transition: background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .12s ease; }
+
+/* Card polish */
+.card {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .22s ease, transform .12s ease;
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
 }
 
-[data-flux-label] {
-    @apply  !mb-0 !leading-tight;
+/* Buttons: soft raised look */
+.btn {
+    border-radius: .45rem;
+    padding: .52rem .72rem;
+}
+.btn-primary {
+    box-shadow: 0 6px 18px rgba(203,14,64,0.12);
+}
+.btn-primary:active { transform: translateY(1px) scale(.997); }
+
+/* Alerts use rose for primary-style */
+.alert-primary, .alert-rose {
+    background-color: rgba(var(--bs-primary-rgb), .06);
+    border-color: rgba(var(--bs-primary-rgb), .14);
+    color: #7b001f;
 }
 
-input:focus[data-flux-control],
-textarea:focus[data-flux-control],
-select:focus[data-flux-control] {
-    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+/* Badges and pills */
+.badge-primary, .badge-rose {
+    background-color: var(--color-rose);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(203,14,64,0.12);
 }
 
-/* \[:where(&)\]:size-4 {
-    @apply size-4;
-} */
+/* Pagination in rose */
+.pagination .page-link {
+    color: var(--color-rose);
+    border-radius: .375rem;
+    border-color: rgba(var(--bs-primary-rgb), .10);
+}
+.pagination .page-item.active .page-link {
+    background-color: var(--color-rose);
+    color: #fff;
+    border-color: var(--color-rose);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Progress bar */
+.progress {
+    background-color: rgba(203,14,64,0.05);
+    border-radius: .5rem;
+}
+.progress-bar {
+    background-color: var(--color-rose);
+}
+
+/* Form controls - soft inset */
+.form-control {
+    border-radius: .45rem;
+    box-shadow: inset 0 -1px 0 rgba(16,24,40,0.02);
+}
+.form-check-input:checked {
+    background-color: var(--color-rose);
+    border-color: var(--color-rose);
+}
+
+/* Table improvements */
+.table {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    padding: 1.25rem;
+}
+.table thead th {
+    font-weight: 600;
+    letter-spacing: .01em;
+    color: var(--color-zinc-700);
+}
+.table tbody tr {
+    background: var(--color-surface);
+    border-radius: .5rem;
+    box-shadow: var(--shadow-sm);
+}
+.table tbody tr td { vertical-align: middle; }
+.table-hover tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background: linear-gradient(180deg, rgba(203,14,64,0.06), rgba(203,14,64,0.02));
+}
+.table-bordered td, .table-bordered th { border-color: rgba(16,24,40,.04); }
+
+/* Modal cosmetic */
+.modal-content {
+    border-radius: .6rem;
+    box-shadow: var(--shadow-lg);
+    border: none;
+}
+.modal-header { border-bottom: 1px solid rgba(16,24,40,.04); }
+.modal-footer { border-top: 1px solid rgba(16,24,40,.04); }
+
+/* Dropdown active */
+.dropdown-item.active, .dropdown-menu .dropdown-item:active {
+    background-color: rgba(var(--bs-primary-rgb), .08);
+    color: var(--color-rose);
+}
+
+/* Tiny animations */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-4px); } 100% { transform: translateY(0); } }
+@keyframes pulseRose { 0% { box-shadow: 0 0 0 0 rgba(var(--bs-primary-rgb), .12); } 70% { box-shadow: 0 0 0 8px rgba(var(--bs-primary-rgb), 0); } 100% { box-shadow: 0 0 0 0 rgba(var(--bs-primary-rgb), 0); } }
+
+.fade-in-up { animation: fadeInUp .36s cubic-bezier(.22,.9,.3,1) both; }
+.float { animation: float 3.6s ease-in-out infinite; }
+.pulse-rose { animation: pulseRose 1.8s ease-out infinite; }
+
+/* Tiny helper for icons on colored backgrounds */
+.contrast-on-rose { color: #fff !important; }
+
+/* Improve header / navbar look */
+.navbar, header.navbar { background: linear-gradient(90deg, rgba(255,255,255,0.98), rgba(248,250,251,0.98)); border-bottom: 1px solid rgba(16,24,40,.04); }
+.navbar .nav-link { padding: .5rem .6rem; border-radius: .375rem; }
+
+/* Utility to force full-bleed subtle separators */
+.divider-soft { height: 1px; background: rgba(16,24,40,.04); border-radius: 1px; }
+
+/* Make anchors that are buttons more prominent */
+a.btn-link, a.btn { text-decoration: none; }
+
+/* Aggressive Bootstrap-blue -> Rose overrides (last-resort) */
+:root, [data-bs-theme="light"] {
+    --bs-primary: var(--color-rose);
+    --bs-primary-rgb: 203, 14, 64;
+    --bs-link-color: var(--color-rose);
+    --bs-link-hover-color: var(--color-rose-600);
+}
+
+/* Replace common Bootstrap 'primary' utilities */
+.text-primary, a.text-primary, .link-primary { color: var(--color-rose) !important; }
+.bg-primary { background-color: var(--color-rose) !important; color: #fff !important; }
+.border-primary { border-color: var(--color-rose) !important; }
+
+/* Buttons and links */
+.btn-primary, .btn.btn-primary { background-color: var(--color-rose) !important; border-color: var(--color-rose) !important; color: #fff !important; }
+.btn-primary:hover, .btn-primary:focus { background-color: var(--color-rose-700) !important; border-color: var(--color-rose-700) !important; box-shadow: 0 0 0 .15rem rgba(var(--bs-primary-rgb), .16) !important; }
+.btn-outline-primary { color: var(--color-rose) !important; border-color: rgba(var(--bs-primary-rgb), .15) !important; }
+.btn-link { color: var(--color-rose) !important; }
+.btn-link:hover { color: var(--color-rose-600) !important; text-decoration: none !important; }
+
+/* Links (non-button) */
+a:not(.btn) { color: var(--color-rose) !important; }
+a:not(.btn):hover { color: var(--color-rose-600) !important; }
+
+/* Form controls and inputs that reference primary */
+.form-check-input:checked { background-color: var(--color-rose) !important; border-color: var(--color-rose) !important; box-shadow: 0 0 0 .18rem rgba(var(--bs-primary-rgb), .12) !important; }
+.form-range::-webkit-slider-thumb { background-color: var(--color-rose) !important; }
+.form-range::-moz-range-thumb { background-color: var(--color-rose) !important; }
+
+/* Ensure badges, alerts and progress using primary look rose */
+.badge-primary, .alert-primary, .progress-bar { background-color: var(--color-rose) !important; border-color: var(--color-rose) !important; color: #fff !important; }
+
+/* Specific: override link color for small header button (login) */
+.btn.btn-link { color: var(--color-rose) !important; }
+
+/* Make outline-primary fill with rose on hover (override Bootstrap internal vars) */
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    color: #fff !important;
+    background-color: var(--color-rose-700) !important;
+    border-color: var(--color-rose-700) !important;
+    box-shadow: 0 0 0 .15rem rgba(var(--bs-primary-rgb), .16) !important;
+}
+
+/* Ensure btn-link style always rose */
+.btn.btn-link, .btn-link { color: var(--color-rose) !important; }
+.btn.btn-link:hover, .btn-link:hover { color: var(--color-rose-600) !important; }
+
+
+/* nav-link.active hover should white */
+.nav-link.active:hover {
+    color: #fff !important;
+    background-color: var(--color-rose-700) !important;
+}
+
+
