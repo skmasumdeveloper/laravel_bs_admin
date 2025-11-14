@@ -44,16 +44,28 @@
                         </a>
 
                         <nav class="nav flex-column">
-                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                                <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">dashboard</span>{{ __('Dashboard') }}
+                            </a>
 
                             @role('admin')
                                 <div class="mt-3">
                                     <div class="text-uppercase small text-muted mb-2">{{ __('Administration') }}</div>
-                                    <a class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">{{ __('Roles') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('admin.users.roles') ? 'active' : '' }}" href="{{ route('admin.users.roles') }}">{{ __('Assign Roles') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">{{ __('Categories') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">{{ __('Pages') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">people</span>{{ __('Users') }}
+                                    </a>
+                                    <a class="nav-link {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">badge</span>{{ __('Roles') }}
+                                    </a>
+                                    <a class="nav-link {{ request()->routeIs('admin.users.roles') ? 'active' : '' }}" href="{{ route('admin.users.roles') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">person_add</span>{{ __('Assign Roles') }}
+                                    </a>
+                                    <a class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">category</span>{{ __('Categories') }}
+                                    </a>
+                                    <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">description</span>{{ __('Pages') }}
+                                    </a>
                                 </div>
                             @endrole
 
@@ -90,15 +102,27 @@
                     </div>
                     <div class="offcanvas-body">
                         <nav class="nav flex-column">
-                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                                <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">dashboard</span>{{ __('Dashboard') }}
+                            </a>
                             @role('admin')
                                 <div class="mt-3">
                                     <div class="text-uppercase small text-muted mb-2">{{ __('Administration') }}</div>
-                                    <a class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">{{ __('Roles') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('admin.users.roles') ? 'active' : '' }}" href="{{ route('admin.users.roles') }}">{{ __('Assign Roles') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">{{ __('Categories') }}</a>
-                                    <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">{{ __('Pages') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">people</span>{{ __('Users') }}
+                                    </a>
+                                    <a class="nav-link {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">badge</span>{{ __('Roles') }}
+                                    </a>
+                                    <a class="nav-link {{ request()->routeIs('admin.users.roles') ? 'active' : '' }}" href="{{ route('admin.users.roles') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">person_add</span>{{ __('Assign Roles') }}
+                                    </a>
+                                    <a class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">category</span>{{ __('Categories') }}
+                                    </a>
+                                    <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">description</span>{{ __('Pages') }}
+                                    </a>
                                 </div>
                             @endrole
                             <div class="mt-4">
