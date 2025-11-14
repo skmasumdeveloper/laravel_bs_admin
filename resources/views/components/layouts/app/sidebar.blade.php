@@ -63,6 +63,9 @@
                                     <a class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">
                                         <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">category</span>{{ __('Categories') }}
                                     </a>
+                                    <a class="nav-link {{ request()->routeIs('admin.blogs.*') ? 'active' : '' }}" href="{{ route('admin.blogs.index') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">article</span>{{ __('Blog Posts') }}
+                                    </a>
                                     <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">
                                         <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">description</span>{{ __('Pages') }}
                                     </a>
@@ -119,6 +122,9 @@
                                     </a>
                                     <a class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">
                                         <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">category</span>{{ __('Categories') }}
+                                    </a>
+                                    <a class="nav-link {{ request()->routeIs('admin.blogs.*') ? 'active' : '' }}" href="{{ route('admin.blogs.index') }}">
+                                        <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">article</span>{{ __('Blog Posts') }}
                                     </a>
                                     <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">
                                         <span class="material-icons align-middle me-2" style="font-size: 20px; vertical-align: -5px;">description</span>{{ __('Pages') }}
