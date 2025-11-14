@@ -52,6 +52,7 @@
                                     <a class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
                                     <a class="nav-link {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">{{ __('Roles') }}</a>
                                     <a class="nav-link {{ request()->routeIs('admin.users.roles') ? 'active' : '' }}" href="{{ route('admin.users.roles') }}">{{ __('Assign Roles') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">{{ __('Categories') }}</a>
                                     <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">{{ __('Pages') }}</a>
                                 </div>
                             @endrole
@@ -96,6 +97,7 @@
                                     <a class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
                                     <a class="nav-link {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">{{ __('Roles') }}</a>
                                     <a class="nav-link {{ request()->routeIs('admin.users.roles') ? 'active' : '' }}" href="{{ route('admin.users.roles') }}">{{ __('Assign Roles') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">{{ __('Categories') }}</a>
                                     <a class="nav-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">{{ __('Pages') }}</a>
                                 </div>
                             @endrole
