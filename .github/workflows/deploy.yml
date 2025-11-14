@@ -1,0 +1,25 @@
+name: FTP Deploy
+
+on:
+  push:
+    branches:
+      - main   # deploy only on push to main (change if needed)
+
+jobs:
+  ftp-deploy:
+    name: Deploy to FTP Server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ftp.shinematrexcom.in
+          username: u912004385.webapp
+          password: '0~eRy6@&R@*uxiYp'
+          protocol: ftp
+          local-dir: ./   # path to your build folder (change if needed)
+          server-dir: /   # remote folder
