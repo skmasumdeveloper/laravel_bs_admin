@@ -12,6 +12,7 @@
         "laravel-vite-plugin": "^2.0",
         "vite": "^7.0.4",
         "bootstrap": "^5.3.3",
-        "sass": "^1.70.0"
+        "sass": "^1.70.0",
+        "jquery": "^3.7.1"
     }
 }

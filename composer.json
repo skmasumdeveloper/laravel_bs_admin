@@ -1,8 +1,8 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/livewire-starter-kit",
+    "name": "laravel/bootstrap-admin-starter",
     "type": "project",
-    "description": "The official Laravel starter kit for Livewire.",
+    "description": "Laravel Bootstrap Admin Starter Kit.",
     "keywords": [
         "laravel",
         "framework"
@@ -13,7 +13,6 @@
         "laravel/fortify": "^1.30",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "livewire/volt": "^1.7.0",
         "spatie/laravel-permission": "^6.23"
     },
     "require-dev": {
